@@ -39,7 +39,7 @@ label {
   letter-spacing: 2px;
 }
 
-.input1 input {
+input {
   width: 80px;
   height: 15px;
   padding: 15px;
@@ -61,7 +61,7 @@ label {
   font-size: 21px;
   font-weight: 750;
   margin-left: 3px;
-  border:2px;
+  border:1px ;
 }
 
 .arrow-and-button {
@@ -136,4 +136,8 @@ label {
 }
 .errormsg{
   color:rgb(240, 53, 24);
+}
+.input1 .error-border {
+  border: 1px solid rgb(240, 53, 24) !important;
+  border-color: rgb(240, 53, 24) !important;
 }

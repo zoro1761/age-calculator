@@ -4,6 +4,7 @@ function valid(event) {
     var day = parseInt(document.getElementById("day").value);
     var month = parseInt(document.getElementById("month").value);
     var year = parseInt(document.getElementById("year").value);
+    var flag=false;
 
     // Clear previous error messages
     clearErrors();
@@ -17,24 +18,26 @@ function valid(event) {
     // Check if any value is NaN or not in the valid range
     if (isNaN(day) ) {
         displayError("dayError", "This filed is required");    
-        dayLabel.classList.add('errormsg'); // Add the error class to apply styling  
+        dayLabel.classList.add('errormsg'); // Add the error class to apply styling 
+        document.getElementById("day").classList.add('error-border');
     }
 
     if (isNaN(month) || month < 1 || month > 12) {
         displayError("monthError", "This filed is required");    
-        monthLabel.classList.add('errormsg'); // Add the error class to apply styling
+        monthLabel.classList.add('errormsg'); // Add the error class to apply styling        
+        document.getElementById("month").classList.add('error-border'); 
     }
 
     if (isNaN(year)) {
         displayError("yearError", "This filed is required");
         yearLabel.classList.add('errormsg'); // Add the error class to apply styling
+        document.getElementById("year").classList.add('error-border');
         return ;
     }
 
     // Check if the date is a future date
     var currentDate = new Date();
     var inputDate = new Date(year, month - 1, day); // Month is 0-indexed in JavaScript Dates
-
 
     // Check for days in the given month
     var daysInMonth = getDaysInMonth(month, year);
@@ -43,19 +46,23 @@ function valid(event) {
     if (day < 1 || day > daysInMonth) {
         displayError("dayError", "Must be a valid day");
         dayLabel.classList.add('errormsg');
+        document.getElementById("day").classList.add('error-border');
     }
     if(month<1 || month>12){
         displayError("monthError","Must be a valid month");
         monthLabel.classList.add('errormsg');
+        document.getElementById("month").classList.add('error-border'); 
     }
     if( year < 1){       
          displayError("yearError", "Must be a valid year");
-         yearLabel.classList.add('errormsg');
+         yearLabel.classList.add('errormsg');       
+         document.getElementById("year").classList.add('error-border');
          return;
     }
     if (inputDate.getTime() > currentDate.getTime()) {
         displayError("yearError", "Must be in the past");
         yearLabel.classList.add('errormsg');
+        document.getElementById("year").classList.add('error-border');
         return;
     }
 
@@ -79,6 +86,9 @@ function clearErrors() {
     document.querySelector('label[for="day"]').classList.remove('errormsg');
     document.querySelector('label[for="month"]').classList.remove('errormsg');
     document.querySelector('label[for="year"]').classList.remove('errormsg');
+    document.getElementById("day").classList.remove('error-border');    
+    document.getElementById("month").classList.remove('error-border');
+    document.getElementById("year").classList.remove('error-border');
 }
 
 function getDaysInMonth(month, year) {
@@ -88,7 +98,7 @@ function getDaysInMonth(month, year) {
         case 4: case 6: case 9: case 11:
             return 30;
         case 2:
-            return (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)) ? 29 : 28;
+            return (year % 4 === 0 && (year % 100 !== 0 || year % 400 ===0)) ? 29 : 28;
         default:
             return 0;
     }
